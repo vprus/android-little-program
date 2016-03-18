@@ -1,5 +1,8 @@
 package com.vladimirprus.littleprogram;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Successfully logged in", Toast.LENGTH_LONG).show();
 
                         AccessToken token = AccessToken.getCurrentAccessToken();
+
+                        ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("Token", token.getToken());
+                        clipboard.setPrimaryClip(clip);
+
                         getFacebookProfile(token);
                     }
 
